@@ -1,9 +1,11 @@
 # AI Environment Setup
 These are the instructions and steps used to setup the AI experimentation environment used during my doctoral experimentation. Technically hardware can vary and versions will vary over time. These are some of my notes and lessons learned. I named the machine Hephaestus.
 
-## General Installation Notes
-- 2023-05-24 - When using Hephaestus need to install using the EVGA 1030 video card I had laying around. Seems when using other more complex hardware will have problems loading the Ubuntu installer.  
-- 2024-05-11 - Have turned off power on 4 3090s, and 2 4090s. Left only the one 4090 at slot 7 on with PSU running and this will allow me to install Ubuntu without any problems.
+## Index
+
+- [Rufus](#rufus)
+- [Operating System](#operating-system)
+- [Journal](#journal)
 
 ## Rufus
 - used Rufus 4.4
@@ -50,3 +52,7 @@ These are the instructions and steps used to setup the AI experimentation enviro
     ```
     
 - Make sure to logout of the machine
+
+## Journal
+- 2023-05-24 - When using Hephaestus need to install using the EVGA 1030 video card I had laying around. Seems when using other more complex hardware will have problems loading the Ubuntu installer.  
+- 2024-05-11 - Have turned off power on 4 3090s, and 2 4090s. Left only the one 4090 at slot 7 on with PSU running and this will allow me to install Ubuntu without any problems.
