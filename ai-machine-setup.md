@@ -1,5 +1,5 @@
-# AI Environment Setup
-These are the instructions and steps used to setup the AI experimentation environment used during my doctoral experimentation. Technically hardware can vary and versions will vary over time. These are some of my notes and lessons learned. I named the machine Hephaestus.
+# AI Machine Setup
+These are the instructions and steps used to setup the AI experimentation machine used during my doctoral experimentation. Technically hardware can vary and versions will vary over time. These are some of my notes and lessons learned. I named the machine Hephaestus.
 
 ## Index
 
