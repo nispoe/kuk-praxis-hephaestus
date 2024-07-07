@@ -9,7 +9,8 @@ These are the instructions and steps used to setup the AI experimentation enviro
 - used Rufus 4.4
 - ubuntu-22.04.3-desktop-amd64.iso
 - These are the settings selected on Rufus
-  <img src="./images/rufus-drive-properties.png" alt="Rufus Settings" style="width: 300px; display: block; margin-left: 20px;" />
+
+  <img src="./images/rufus-drive-properties.png" alt="Rufus Settings" style="width: 400px; display: block; margin-left: 20px;" />
 
 ## Operating System
 - Installed ubuntu-22.04.3-desktop-amd64.iso using rufus and usbc hard drive. This works fast if you have a 10Gbps drive.
