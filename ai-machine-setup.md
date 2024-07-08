@@ -2,10 +2,30 @@
 These are the instructions and steps used to setup the AI experimentation machine used during my doctoral experimentation. Technically hardware can vary and versions will vary over time. These are some of my notes and lessons learned. I named the machine Hephaestus.
 
 ## Index
-
+- [Hardware](#hardware)
 - [Rufus](#rufus)
 - [Operating System](#operating-system)
 - [Journal](#journal)
+
+## Hardware
+- I made videos while I was constructing the machine
+- I put the files on YouTube and I called this my [Hephaestus Build](https://www.youtube.com/playlist?list=PLqL965J4xElJek_JlCG60EOddZZykeb1y)
+- Here is a parts list
+    - Kingwin KC-8GPU Open Air Case
+    - Asus WRX80E-SAGE SE WIFI II
+    - AMD Threadripper Pro 5975WX
+    - 512 GB Micron 3200 ECC
+    - EK-XTOP Revo Dual D5 pump
+    - EK-Quantum Magnitude sTRX4 Copper
+    - EK X560M and PE 480 radiators
+    - Noctua NA-FH1
+    - EVGA 1000W T2
+    - EVGA 1600W T2 x2
+    - Intel Optane P5800X 1.6TB
+    - WD_Black SN850X 4TB
+    - Two EVGA 3090 GPUs NVLinked
+    - Two EVGA 3090 Ti GPUs NVLinked
+    - Three Asus 4090 GPUs
 
 ## Rufus
 - used Rufus 4.4
