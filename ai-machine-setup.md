@@ -55,6 +55,7 @@ These are the instructions and steps used to setup the AI experimentation machin
     - 2024-03-05 - problem with Asus WRX80e motherboard and usb being detected, but still have a problem…
     - 2024-03-06 - turn off the VGA switch on the motherboard, this works with BIOS update
     - 2024-03-06 - https://forum.level1techs.com/t/solved-asus-pro-ws-wrx80e-sage-se-wifi-not-detecting-all-my-nvme-drives-in-proxmox/189373
+
         1. `cd /etc/default/`
         2. `vim grub`
         3. edit line: `GRUB_CMDLINE_LINUX_Default="quiet"`
@@ -62,6 +63,7 @@ These are the instructions and steps used to setup the AI experimentation machin
         5. Escape button → `:wq`
         6. `update-grub`
         7. Reboot the machine
+        
     - 2024-03-07 - Updated BIOS to version 1302 date 12/08/2023, was version 1106 date 02/10/2023
 - Install OpenSSH
     
