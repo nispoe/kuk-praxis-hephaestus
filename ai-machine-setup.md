@@ -332,6 +332,7 @@ These are the instructions and steps used to setup the AI experimentation machin
     ```
     
 - May look like this
+
     <img src="./images/tensorrt-result.png" alt="Rufus Settings" style="width: 900px; display: block; margin-left: 20px;" />
 
 ## Setup Jupyter Lab
@@ -429,7 +430,7 @@ These are the instructions and steps used to setup the AI experimentation machin
     - Make sure to show options and add User name and checkbox ‘Allow me to save credentials’
 
       <img src="./images/remote-desktop-connection.png" alt="Rufus Settings" style="width: 400px; display: block; margin-left: 20px;" />
-      
+
     - When Windows Security comes up select ‘Use a different account’ and then enter a username and password
 
 ## Journal
