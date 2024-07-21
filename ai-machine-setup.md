@@ -45,6 +45,7 @@ These are the instructions and steps used to setup the AI experimentation machin
 - used Rufus 4.4
 - ubuntu-22.04.3-desktop-amd64.iso
 - These are the settings selected on Rufus
+
   <img src="./images/rufus-drive-properties.png" alt="Rufus Settings" style="width: 400px; display: block; margin-left: 20px;" />
 
 ## Operating System
@@ -113,6 +114,7 @@ These are the instructions and steps used to setup the AI experimentation machin
     ```
 
 - Look for something like sda1
+
     <img src="./images/lsblk_sda1.png" alt="Rufus Settings" style="width: 600px; display: block; margin-left: 20px;" />
 
 - Create a directory
@@ -270,7 +272,9 @@ These are the instructions and steps used to setup the AI experimentation machin
     nvidia-smi
     nvcc --version
     ```
+
     <img src="./images/nvidia-smi-command-results.png" alt="Rufus Settings" style="width: 600px; display: block; margin-left: 20px;" />
+
     <img src="./images/nvcc-version-results.png" alt="Rufus Settings" style="width: 400px; display: block; margin-left: 20px;" />
 
 - Check if NVLink is connected
@@ -423,7 +427,9 @@ These are the instructions and steps used to setup the AI experimentation machin
     - Search and open Remote Desktop Connection
     - Type in the IP address 10.0.0.40 (your Ubuntu machine’s IP address) and click he Connect button
     - Make sure to show options and add User name and checkbox ‘Allow me to save credentials’
-        <img src="./images/remote-desktop-connection.png" alt="Rufus Settings" style="width: 400px; display: block; margin-left: 20px;" />
+
+      <img src="./images/remote-desktop-connection.png" alt="Rufus Settings" style="width: 400px; display: block; margin-left: 20px;" />
+      
     - When Windows Security comes up select ‘Use a different account’ and then enter a username and password
 
 ## Journal
