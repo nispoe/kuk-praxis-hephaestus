@@ -5,6 +5,16 @@ These are the instructions and steps used to setup the AI experimentation machin
 - [Hardware](#hardware)
 - [Rufus](#rufus)
 - [Operating System](#operating-system)
+- [Install network tools](#install-network-tools)
+- [SSH to machine](#ssh-to-machine)
+- [Update and Ugrade Ubuntu](#update-and-ugrade-ubuntu)
+- [Map USBC Drive](#map-usbc-drive)
+- [Useful Commands](#useful-commands)
+- [Install Git](#install-git)
+- [Install Nvidia Driver](#install-nvidia-driver)
+- [Install Cuda Toolkit 11.8](#install-cuda-toolkit-118)
+- [Install cuDNN](#install-cudnn)
+- [Install TensorRT](#install-tensorrt)
 - [Journal](#journal)
 
 ## Hardware
@@ -31,7 +41,6 @@ These are the instructions and steps used to setup the AI experimentation machin
 - used Rufus 4.4
 - ubuntu-22.04.3-desktop-amd64.iso
 - These are the settings selected on Rufus
-
   <img src="./images/rufus-drive-properties.png" alt="Rufus Settings" style="width: 400px; display: block; margin-left: 20px;" />
 
 ## Operating System
@@ -44,102 +53,77 @@ These are the instructions and steps used to setup the AI experimentation machin
         - Other options = uncheck all
     - Installation Type = Erase disk and install Ubuntu (3rd option)
     - Where are you? = Chicago
-        - Your name = nispoe
-        - Your computer’s name = hephaestus
-        - Pick a username = nispoe
+        - Your name = nispoe (enter your own name)
+        - Your computer’s name = hephaestus (enter your own name)
+        - Pick a username = nispoe (enter your own name)
         - Password = what you normally put
 - After install login and open a terminal window in Ubuntu (not remotely)
-- Now is a good time to copy over some files
+- Now is a good time to copy over some files from a usb drive
     - copy /usbc/kuk folder to /home/nispoe/kuk
-- Fix problem with PCIe (Updated BIOS and Motherboard VGA Switch)
-    - 2024-03-05 - problem with Asus WRX80e motherboard and usb being detected, but still have a problem…
-    - 2024-03-06 - turn off the VGA switch on the motherboard, this works with BIOS update
-    - 2024-03-06 - https://forum.level1techs.com/t/solved-asus-pro-ws-wrx80e-sage-se-wifi-not-detecting-all-my-nvme-drives-in-proxmox/189373
-        - `cd /etc/default/`
-        - `vim grub`
-        - edit line: `GRUB_CMDLINE_LINUX_Default="quiet"`
-        - update to: `GRUB_CMDLINE_LINUX_DEFAULT="quiet pci=nommconf"`
-        - Escape button → `:wq`
-        - `update-grub`
-        - Reboot the machine
-    - 2024-03-07 - Updated BIOS to version 1302 date 12/08/2023, was version 1106 date 02/10/2023
 - Install OpenSSH
-    
+
     ```bash
     sudo systemctl status ssh
     sudo apt -y install openssh-server
     sudo ufw allow ssh
     ```
 - Make sure to logout of the machine
-## Install network tools
 
+## Install network tools
 - Install net tools and show ip address may need this to get the IP address of the machine
-    
+
     ```bash
     sudo apt -y install net-tools
     ip addr show
     ifconfig
     ```
-    
 
 ## SSH to machine
-
 - May need to modify known_hosts file C:\Users\nispoe\.ssh and remove network entry to machine (for me this is 10.0.0.32 or 10.0.0.40)
-    
+- I used powershell from Windows 11
+
     ```bash
     cd C:\Users\nispoe\.ssh
     notepad .\known_hosts
     ```
-    
+
 - SSH to the machine by using command in powershell
-    
+
     ```bash
     ssh nispoe@10.0.0.49
-    
-    OLD
-    ssh nispoe@10.0.0.40
-    ssh nispoe@10.0.0.24
-    ```
-    
+    ```    
 
 ## Update and Ugrade Ubuntu
-
 - Update and upgrade
-    
+
     ```bash
     sudo apt -y update && sudo apt -y upgrade
     ```
-    
 
 ## Map USBC Drive
-
 - I have some files I copied over to save time located in a USBC drive under the /kuk directory
 - Look for USBC drive
-    
+
     ```bash
     lsblk
     ```
-    
+
 - Look for something like sda1
-    
-    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/6cb5a4d7-d3d5-4ded-927a-da8e074cdcb2/446f4471-b3c1-40ec-854e-96f8d4548540/Untitled.png)
-    
+    <img src="./images/lsblk_sda1.png" alt="Rufus Settings" style="width: 600px; display: block; margin-left: 20px;" />
+
 - Create a directory
-    
+
     ```bash
     mkdir usbc
-    
     mkdir data
     ```
-    
+
 - Mount the drive
-    
+
     ```bash
     sudo mount /dev/sda1 ~/usbc
-    
     # may need to unmount if automatically mounted during bootup
     sudo umount '/media/nispoe/Ubuntu 22_04_3 LTS amd64'
-    
     sudo mount /dev/nvme2n1p1 ~/data
     ```
     
@@ -161,16 +145,14 @@ These are the instructions and steps used to setup the AI experimentation machin
     sudo umount ~/usbc
     ```
     
-
 ### Useful Commands
-
 - rsync command
     
     ```bash
     rsync -av --progress ./Praxis/ /home/nispoe/usbc/kuk
     rsync -a --info=progress2 ./Praxis/ /home/nispoe/usbc/kuk
     
-    # Backup
+    # Backup Commands
     rsync -a --info=progress2 /home/nispoe/kuk/ /home/nispoe/data/kuk
     rsync -a --info=progress2 /home/nispoe/.cache/huggingface/ /home/nispoe/data/.cache/huggingface/
     ```
@@ -196,7 +178,6 @@ These are the instructions and steps used to setup the AI experimentation machin
     - **`h`**: This option stands for "human-readable". When used with **`du`**, it tells the command to print sizes in a human-readable format (e.g., kilobytes, megabytes, gigabytes).
     
     ```jsx
-    
     du -sh .
     du -sh ~/kuk
     
@@ -216,7 +197,6 @@ These are the instructions and steps used to setup the AI experimentation machin
     ```
 
 ## Install Git
-
 - Install Git
     
     ```bash
@@ -224,7 +204,6 @@ These are the instructions and steps used to setup the AI experimentation machin
     ```
 
 ## Install Nvidia Driver
-
 - Install the commands after ssh into the machine
 - Install using default repository (most times this is what you will do). The latest driver for me was version 535
     - 2024-03-06 - Now installing with 545
@@ -247,15 +226,9 @@ These are the instructions and steps used to setup the AI experimentation machin
     ```bash
     nvidia-smi
     ```
-    
 
 ## Install Cuda Toolkit 11.8
-
 - Install Cuda Toolkit
-- [Nvidia CUDA Toolkit 11.8 Downloads](https://developer.nvidia.com/cuda-11-8-0-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=deb_local) - Location for CUDA Toolkit download
-- 2024-03-06 - this is old - I was having problems making this work with Nvidia driver 535, it looks like it need version 520
-- 2024-03-06 - problems with 535 so installed 545, this is needed for Cuda Toolkit 11.8 now?
-- 2024-03-06 - 550 went missing so installed 545…
 - Install using what is in repository
     
     ```bash
@@ -293,23 +266,19 @@ These are the instructions and steps used to setup the AI experimentation machin
     nvidia-smi
     nvcc --version
     ```
-    
+    <img src="./images/nvidia-smi-command-results.png" alt="Rufus Settings" style="width: 600px; display: block; margin-left: 20px;" />
+    <img src="./images/nvcc-version-results.png" alt="Rufus Settings" style="width: 400px; display: block; margin-left: 20px;" />
+
 - Check if NVLink is connected
     
     ```jsx
-    nvidia-smi topo -m
-    
     watch -n 1 nvidia-smi
+
+    nvidia-smi topo -m
     ```
-    
-    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/6cb5a4d7-d3d5-4ded-927a-da8e074cdcb2/9d5213f8-6791-4ca2-ba49-901c917dbc42/Untitled.png)
-    
 
-### **Install CuDNN**
-
-- [Nvidia **cuDNN Archive](https://developer.nvidia.com/rdp/cudnn-archive) (Will have to login to Nvidia Developer)**
-- [cuDNN Downloads](https://developer.nvidia.com/cudnn-downloads?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=deb_network)
-- Instructions 2024-04-23
+## Install cuDNN
+- Install cuDNN
     
     ```bash
     wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
@@ -317,6 +286,7 @@ These are the instructions and steps used to setup the AI experimentation machin
     sudo apt-get update
     sudo apt-get -y install cudnn
     
+    # This is for specific versions use the command above to install the latest
     sudo apt-get -y install cudnn-cuda-11
     sudo apt-get -y install cudnn-cuda-12
     ```
@@ -334,19 +304,7 @@ These are the instructions and steps used to setup the AI experimentation machin
     ```
 
 ### Install TensorRT
-
-- [TensorRT Downloads](https://developer.nvidia.com/tensorrt)
-- Selected TensorRT 10 Ubuntu 22.04 and CUDA 12
-    
-    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/6cb5a4d7-d3d5-4ded-927a-da8e074cdcb2/3c896b26-1e65-4ba9-ab19-d93bed58018c/Untitled.png)
-    
-- Copy file to machine
-    
-    ```bash
-    scp .\nv-tensorrt-local-repo-ubuntu2204-10.0.0-cuda-12.4_1.0-1_amd64.deb nispoe@10.0.0.49:~/kuk
-    ```
-    
-- 3.2.1.1. Using The NVIDIA CUDA Network Repo For Debian Installation
+- Using The NVIDIA CUDA Network Repo For Debian Installation
     
     ```bash
     sudo apt install tensorrt
@@ -366,12 +324,9 @@ These are the instructions and steps used to setup the AI experimentation machin
     ```
     
 - May look like this
-    
-    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/6cb5a4d7-d3d5-4ded-927a-da8e074cdcb2/5ffd4be1-7ad9-49e8-8b82-dff5b55d4244/Untitled.png)
-    
+    <img src="./images/tensorrt-result.png" alt="Rufus Settings" style="width: 900px; display: block; margin-left: 20px;" />    
 
 ## Setup Jupyter Lab
-
 - Set some path stuff you will need later
     
     ```bash
@@ -380,8 +335,8 @@ These are the instructions and steps used to setup the AI experimentation machin
     echo 'export TOKENIZERS_PARALLELISM=true' >> ~/.bashrc
     source ~/.bashrc
     
-    export HF_TOKEN=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
-    wandb=3b3146b68c2694123a377c864060d759b6332f0a
+    export HF_TOKEN=(put your token here)
+    wandb=(put your token here)
     ```
     
 - Install dependencies
@@ -480,3 +435,20 @@ These are the instructions and steps used to setup the AI experimentation machin
 ## Journal
 - 2023-05-24 - When using Hephaestus need to install using the EVGA 1030 video card I had laying around. Seems when using other more complex hardware will have problems loading the Ubuntu installer.  
 - 2024-05-11 - Have turned off power on 4 3090s, and 2 4090s. Left only the one 4090 at slot 7 on with PSU running and this will allow me to install Ubuntu without any problems.
+- 2024-03-05 - Problem with Asus WRX80e motherboard and usb being detected. Fix problem with PCIe (Updated BIOS and Motherboard VGA Switch).
+- 2024-03-06 - Turn off the VGA switch on the motherboard, this works with BIOS update.
+- 2024-03-06 - https://forum.level1techs.com/t/solved-asus-pro-ws-wrx80e-sage-se-wifi-not-detecting-all-my-nvme-drives-in-proxmox/189373
+        - `cd /etc/default/`
+        - `vim grub`
+        - edit line: `GRUB_CMDLINE_LINUX_Default="quiet"`
+        - update to: `GRUB_CMDLINE_LINUX_DEFAULT="quiet pci=nommconf"`
+        - Escape button → `:wq`
+        - `update-grub`
+        - Reboot the machine
+- 2024-03-07 - Updated BIOS to version 1302 date 12/08/2023, was version 1106 date 02/10/2023.
+- 2024-03-06 - [Nvidia CUDA Toolkit 11.8 Downloads](https://developer.nvidia.com/cuda-11-8-0-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=deb_local) - Location for CUDA Toolkit download
+- 2024-03-06 - Installing CUDA toolkit, I was having problems making this work with Nvidia driver 535, it looks like it need version 520
+- 2024-03-06 - Installing CUDA toolkit, Problems with 535 so installed 545, this is needed for Cuda Toolkit 11.8 now?
+- 2024-04-23 - Installing cuDNN
+    - [Nvidia cuDNN Archive](https://developer.nvidia.com/rdp/cudnn-archive) (Will have to login to Nvidia Developer)
+    - [cuDNN Downloads](https://developer.nvidia.com/cudnn-downloads?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=deb_network)
