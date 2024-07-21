@@ -15,6 +15,10 @@ These are the instructions and steps used to setup the AI experimentation machin
 - [Install Cuda Toolkit 11.8](#install-cuda-toolkit-118)
 - [Install cuDNN](#install-cudnn)
 - [Install TensorRT](#install-tensorrt)
+- [Setup Jupyter Lab](#setup-jupyter-lab)
+- [Monitoring Commands](#monitoring-commands)
+- [Suspend Machine](#suspend-machine)
+- [Remote Desktop](#remote-desktop)
 - [Journal](#journal)
 
 ## Hardware
@@ -272,7 +276,7 @@ These are the instructions and steps used to setup the AI experimentation machin
 - Check if NVLink is connected
     
     ```jsx
-    watch -n 1 nvidia-smi
+    nvidia-smi
 
     nvidia-smi topo -m
     ```
@@ -324,7 +328,7 @@ These are the instructions and steps used to setup the AI experimentation machin
     ```
     
 - May look like this
-    <img src="./images/tensorrt-result.png" alt="Rufus Settings" style="width: 900px; display: block; margin-left: 20px;" />    
+    <img src="./images/tensorrt-result.png" alt="Rufus Settings" style="width: 900px; display: block; margin-left: 20px;" />
 
 ## Setup Jupyter Lab
 - Set some path stuff you will need later
@@ -371,8 +375,6 @@ These are the instructions and steps used to setup the AI experimentation machin
     
     ```bash
     jupyter-lab --ip=0.0.0.0 --port=8888
-    
-    jupyter-lab --ip=0.0.0.0 --port=8889
     ```
     
 - Copy jupyter notebook files
@@ -384,7 +386,6 @@ These are the instructions and steps used to setup the AI experimentation machin
     ```
 
 ## Monitoring Commands
-
 - Commands used while monitoring CPU and Nvidia GPU
 - CPU (monitor updates frequently)
     
@@ -397,10 +398,8 @@ These are the instructions and steps used to setup the AI experimentation machin
     ```bash
     watch -n 3 nvidia-smi
     ```
-    
 
 ## Suspend Machine
-
 - Sometimes I want to suspend a machine
     
     ```bash
@@ -408,7 +407,6 @@ These are the instructions and steps used to setup the AI experimentation machin
     ```
 
 ## Remote Desktop
-
 - In Ubuntu Desktop
     - Search for Sharing and find the Remote Desktop toggle button
     - Select Remote Desktop and Remote Control
@@ -425,12 +423,8 @@ These are the instructions and steps used to setup the AI experimentation machin
     - Search and open Remote Desktop Connection
     - Type in the IP address 10.0.0.40 (your Ubuntu machine’s IP address) and click he Connect button
     - Make sure to show options and add User name and checkbox ‘Allow me to save credentials’
-        
-        ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/6cb5a4d7-d3d5-4ded-927a-da8e074cdcb2/3c85a1cd-6b69-49a2-b97f-099aa47826f1/Untitled.png)
-        
+        <img src="./images/remote-desktop-connection.png" alt="Rufus Settings" style="width: 400px; display: block; margin-left: 20px;" />
     - When Windows Security comes up select ‘Use a different account’ and then enter a username and password
-        
-        ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/6cb5a4d7-d3d5-4ded-927a-da8e074cdcb2/9bc730e9-6316-445e-bc59-6b2ddc83c79c/Untitled.png)
 
 ## Journal
 - 2023-05-24 - When using Hephaestus need to install using the EVGA 1030 video card I had laying around. Seems when using other more complex hardware will have problems loading the Ubuntu installer.  
@@ -438,17 +432,14 @@ These are the instructions and steps used to setup the AI experimentation machin
 - 2024-03-05 - Problem with Asus WRX80e motherboard and usb being detected. Fix problem with PCIe (Updated BIOS and Motherboard VGA Switch).
 - 2024-03-06 - Turn off the VGA switch on the motherboard, this works with BIOS update.
 - 2024-03-06 - https://forum.level1techs.com/t/solved-asus-pro-ws-wrx80e-sage-se-wifi-not-detecting-all-my-nvme-drives-in-proxmox/189373
-        - `cd /etc/default/`
-        - `vim grub`
-        - edit line: `GRUB_CMDLINE_LINUX_Default="quiet"`
-        - update to: `GRUB_CMDLINE_LINUX_DEFAULT="quiet pci=nommconf"`
-        - Escape button → `:wq`
-        - `update-grub`
-        - Reboot the machine
+    - `cd /etc/default/`
+    - `vim grub`
+    - edit line: `GRUB_CMDLINE_LINUX_Default="quiet"`
+    - update to: `GRUB_CMDLINE_LINUX_DEFAULT="quiet pci=nommconf"`
+    - Escape button → `:wq`
+    - `update-grub`
+    - Reboot the machine
 - 2024-03-07 - Updated BIOS to version 1302 date 12/08/2023, was version 1106 date 02/10/2023.
 - 2024-03-06 - [Nvidia CUDA Toolkit 11.8 Downloads](https://developer.nvidia.com/cuda-11-8-0-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=deb_local) - Location for CUDA Toolkit download
 - 2024-03-06 - Installing CUDA toolkit, I was having problems making this work with Nvidia driver 535, it looks like it need version 520
 - 2024-03-06 - Installing CUDA toolkit, Problems with 535 so installed 545, this is needed for Cuda Toolkit 11.8 now?
-- 2024-04-23 - Installing cuDNN
-    - [Nvidia cuDNN Archive](https://developer.nvidia.com/rdp/cudnn-archive) (Will have to login to Nvidia Developer)
-    - [cuDNN Downloads](https://developer.nvidia.com/cudnn-downloads?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=deb_network)
